@@ -2,16 +2,16 @@
     "BaudRate": 115200,
     "Board": "",
     "Flash": "",
-    "Scripts": {
-        "test": "blink"
-    },
-    "Modules": {
-
-    },
     "Ignore": [
         "espjs.json",
         "package.json",
         ".git/*",
         "node_modules/*"
-    ]
+    ],
+    "Scripts": {
+        "test": "blink"
+    },
+    "Modules": {
+        "MQTT": "http://www.espruino.com/modules/MQTT.min.js"
+    }
 }
