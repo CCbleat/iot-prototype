@@ -1,6 +1,6 @@
 {
     "BaudRate": 115200,
-    "Board": "",
+    "Board": "esp8266",
     "Flash": "",
     "Ignore": [
         "espjs.json",

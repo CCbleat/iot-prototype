@@ -1,14 +1,14 @@
 const wifi = require("Wifi");
-const http = require("http");
+// const http = require("http");
 const mqtt = require("modules/MQTT.min.js");
 
 // wifi 名称
-// const WIFI_NAME = "where is your dick";
-const WIFI_NAME = "abcdefg";
+const WIFI_NAME = "where is your dick";
+// const WIFI_NAME = "abcdefg";
 // wifi 参数
 const WIFI_OPTIONS = {
-  password: "12345678",
-  // password: "boyulinzuishuai",
+  // password: "12345678",
+  password: "boyulinzuishuai",
 };
 console.log("connecting...");
 //已连接wifi的事件
@@ -33,7 +33,7 @@ wifi.connect(WIFI_NAME, WIFI_OPTIONS, (err) => {
 function connectMQTTServer() {
   // 139.224.56.89 cloud server open ip address
   // var host = "139.224.56.89";
-  var host = "localhost/";
+  var host = "192.168.0.57";
   var client = mqtt.connect({
     host: host,
     port: 1883,
@@ -53,4 +53,29 @@ function connectMQTTServer() {
       digitalWrite(NodeMCU.D4, params.status);
     }
   });
+}
+
+let Dlight = 0;
+let Alight = 0;
+setInterval(() => {
+  Dlight = digitalRead(NodeMCU.D2);
+  Alight = analogRead(A0);
+  console.log("light degree:", Dlight, Alight);
+  if(autoLight(Alight)) {
+    manualLight(0);
+  } else {
+    manualLight(1);
+  }
+}, 2000);
+
+function autoLight(lightDegree) {
+  thredhold = 0.1;
+  if(lightDegree > thredhold) {
+    return true;
+  }
+  return false;
+}
+
+function manualLight(status) {
+  digitalWrite(NodeMCU.D4, status);
 }
